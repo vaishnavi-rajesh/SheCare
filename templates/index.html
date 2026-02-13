@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SheCare - Health Risk Predictor</title>
+</head>
+<body>
+
+<h2>SheCare Health Risk Predictor</h2>
+
+<form id="predictForm">
+
+    User ID: <input type="number" id="user_id"><br><br>
+
+    Age: <input type="number" id="age"><br><br>
+
+    BMI: <input type="number" id="BMI"><br><br>
+
+    Cycle variation (days): <input type="number" id="cycle_variation"><br><br>
+
+    Acne severity (0=none,1=mild,2=severe):
+    <input type="number" id="acne_severity"><br><br>
+
+    Hair growth (0=no,1=yes):
+    <input type="number" id="hair_growth"><br><br>
+
+    Fatigue (0=no,1=yes):
+    <input type="number" id="fatigue"><br><br>
+
+    Hemoglobin level:
+    <input type="number" id="hemoglobin"><br><br>
+
+    Breast lump (0=no,1=yes):
+    <input type="number" id="breast_lump"><br><br>
+
+    Breast pain (0=no,1=yes):
+    <input type="number" id="breast_pain"><br><br>
+
+    <button type="submit">Predict</button>
+
+</form>
+
+<h3 id="result"></h3>
+
+<script>
+
+document.getElementById("predictForm").onsubmit = async function(e) {
+
+    e.preventDefault();
+
+    const data = {
+
+        user_id: parseInt(document.getElementById("user_id").value),
+
+        age: parseInt(document.getElementById("age").value),
+
+        BMI: parseFloat(document.getElementById("BMI").value),
+
+        cycle_variation: parseInt(document.getElementById("cycle_variation").value),
+
+        acne_severity: parseInt(document.getElementById("acne_severity").value),
+
+        hair_growth: parseInt(document.getElementById("hair_growth").value),
+
+        fatigue: parseInt(document.getElementById("fatigue").value),
+
+        hemoglobin: parseFloat(document.getElementById("hemoglobin").value),
+
+        breast_lump: parseInt(document.getElementById("breast_lump").value),
+
+        breast_pain: parseInt(document.getElementById("breast_pain").value)
+    };
+
+    const response = await fetch("http://127.0.0.1:5000/predict", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(data)
+
+    });
+
+    const result = await response.json();
+
+    document.getElementById("result").innerHTML =
+        "PCOS Risk: " + result.pcos_risk +
+        "<br>Anemia Risk: " + result.anemia_risk +
+        "<br>Breast Cancer Risk: " + result.breast_cancer_risk;
+};
+
+</script>
+
+</body
+</html>

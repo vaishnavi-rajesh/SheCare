@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheCare - Prediction History</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe5f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar h1 {
+            color: #d63384;
+            font-size: 24px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: #d63384;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background: #b82b6e;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .history-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .history-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            transition: transform 0.3s;
+        }
+        
+        .history-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .card-number {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .card-date {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .risk-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .risk-item h4 {
+            font-size: 12px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+            text-transform: uppercase;
+        }
+        
+        .risk-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .risk-high {
+            color: #ff6b6b;
+        }
+        
+        .risk-low {
+            color: #51cf66;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #d63384;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .risk-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🌸 SheCare - History</h1>
+        <a href="/dashboard" class="nav-btn">Back to Dashboard</a>
+    </div>
+
+    <div class="container">
+        <h2>Your Prediction History</h2>
+        
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading your history...</p>
+        </div>
+        
+        <div id="historyContainer" class="history-grid" style="display: none;"></div>
+        
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">📊</div>
+            <h3>No Predictions Yet</h3>
+            <p>You haven't made any health risk assessments yet.</p>
+            <p style="margin-top: 20px;">
+                <a href="/dashboard" class="nav-btn">Make Your First Prediction</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const userId = window.location.pathname.split("/").pop();
+
+        async function loadHistory() {
+            try {
+                const response = await fetch(`/history/${userId}`);
+                const data = await response.json();
+                
+                document.getElementById("loading").style.display = "none";
+                
+                if (data.length === 0) {
+                    document.getElementById("emptyState").style.display = "block";
+                } else {
+                    displayHistory(data);
+                }
+            } catch (error) {
+                document.getElementById("loading").style.display = "none";
+                console.error("Error loading history:", error);
+                alert("Failed to load history. Please try again.");
+            }
+        }
+
+        function displayHistory(predictions) {
+            const container = document.getElementById("historyContainer");
+            container.style.display = "grid";
+            
+            let html = "";
+            
+            predictions.forEach((prediction, index) => {
+                const cardNumber = predictions.length - index;
+                const dateStr = prediction.created_at || "Date not available";
+                
+                html += `
+                    <div class="history-card">
+                        <div class="card-header">
+                            <span class="card-number">Assessment #${cardNumber}</span>
+                            <span class="card-date">${dateStr}</span>
+                        </div>
+                        <div class="risk-grid">
+                            <div class="risk-item">
+                                <h4>PCOS Risk</h4>
+                                <div class="risk-value ${prediction.pcos === 1 ? 'risk-high' : 'risk-low'}">
+                                    ${prediction.pcos === 1 ? 'High' : 'Low'}
+                                </div>
+                            </div>
+                            <div class="risk-item">
+                                <h4>Anemia Risk</h4>
+                                <div class="risk-value ${prediction.anemia === 1 ? 'risk-high' : 'risk-low'}">
+                                    ${prediction.anemia === 1 ? 'High' : 'Low'}
+                                </div>
+                            </div>
+                            <div class="risk-item">
+                                <h4>Breast Cancer Risk</h4>
+                                <div class="risk-value ${prediction.breast_cancer === 1 ? 'risk-high' : 'risk-low'}">
+                                    ${prediction.breast_cancer === 1 ? 'High' : 'Low'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Load history when page loads
+        window.onload = loadHistory;
+    </script>
+</body>
+</html>
