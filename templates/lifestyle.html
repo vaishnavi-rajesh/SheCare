@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheCare - Lifestyle & Wellness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe5f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar h1 {
+            color: #d63384;
+            font-size: 24px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: #d63384;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .nav-btn:hover {
+            background: #b82b6e;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: #e0e0e0;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .video-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .video-thumbnail iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .video-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            background: #e7f3ff;
+            color: #0066cc;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .wellness-section {
+            margin-bottom: 30px;
+        }
+        
+        .wellness-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-left: 4px solid #d63384;
+            padding-left: 15px;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .tip-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            color: white;
+        }
+        
+        .tip-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .tip-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .tip-content {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        
+        .info-banner {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .info-banner h3 {
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+        
+        .info-banner p {
+            color: #2d3436;
+            line-height: 1.6;
+        }
+        
+        .filter-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover {
+            border-color: #d63384;
+            color: #d63384;
+        }
+        
+        .filter-btn.active {
+            background: #d63384;
+            color: white;
+            border-color: #d63384;
+        }
+        
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🧘‍♀️ Lifestyle & Wellness</h1>
+        <div>
+            <a href="/dashboard" class="nav-btn">Dashboard</a>
+            <a href="/nutrition-planner" class="nav-btn">Nutrition</a>
+            <a href="#" onclick="logout()" class="nav-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="info-banner">
+                <h3>🌟 Welcome to Your Wellness Hub</h3>
+                <p>Discover exercises, yoga routines, and lifestyle tips specifically designed for managing PCOS, Anemia, and Breast Cancer recovery. Remember to consult with your healthcare provider before starting any new exercise routine.</p>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('pcos')">PCOS Exercises</button>
+                <button class="tab" onclick="switchTab('anemia')">Anemia Management</button>
+                <button class="tab" onclick="switchTab('breast-cancer')">Breast Cancer Support</button>
+                <button class="tab" onclick="switchTab('general')">General Wellness</button>
+            </div>
+            
+            <!-- PCOS Tab -->
+            <div id="pcos" class="tab-content active">
+                <div class="filter-section">
+                    <span class="filter-label">Filter by type:</span>
+                    <button class="filter-btn active" onclick="filterVideos('pcos', 'all')">All</button>
+                    <button class="filter-btn" onclick="filterVideos('pcos', 'yoga')">Yoga</button>
+                    <button class="filter-btn" onclick="filterVideos('pcos', 'cardio')">Cardio</button>
+                    <button class="filter-btn" onclick="filterVideos('pcos', 'strength')">Strength</button>
+                </div>
+                
+                <div class="video-grid" id="pcos-videos">
+                    <div class="video-card" data-type="yoga">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/mUbgpvaTm3k" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Yoga for PCOS - Complete 30 Min Routine</div>
+                            <div class="video-description">A gentle yoga sequence to help manage PCOS symptoms, improve hormonal balance, and reduce stress.</div>
+                            <div class="video-tags">
+                                <span class="tag">Yoga</span>
+                                <span class="tag">30 min</span>
+                                <span class="tag">Beginner Friendly</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-type="cardio">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/gl8dKbMh8XM" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Low Impact Cardio for PCOS</div>
+                            <div class="video-description">Low-impact cardio workout designed to help with weight management and insulin resistance in PCOS.</div>
+                            <div class="video-tags">
+                                <span class="tag">Cardio</span>
+                                <span class="tag">20 min</span>
+                                <span class="tag">Low Impact</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-type="strength">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/UBMk30rjy0o" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Strength Training for PCOS - Full Body</div>
+                            <div class="video-description">Full body strength workout to improve insulin sensitivity and build lean muscle mass.</div>
+                            <div class="video-tags">
+                                <span class="tag">Strength</span>
+                                <span class="tag">25 min</span>
+                                <span class="tag">All Levels</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-type="yoga">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/R6Kap2THfaY" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Morning Yoga Flow for PCOS</div>
+                            <div class="video-description">Energizing morning yoga routine to start your day right and support hormonal health.</div>
+                            <div class="video-tags">
+                                <span class="tag">Yoga</span>
+                                <span class="tag">15 min</span>
+                                <span class="tag">Morning Routine</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wellness-section">
+                    <h3>PCOS Lifestyle Tips</h3>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-icon">🍽️</div>
+                            <div class="tip-title">Balanced Nutrition</div>
+                            <div class="tip-content">Focus on whole foods, lean proteins, and complex carbs. Avoid processed foods and excess sugar to manage insulin levels.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">💪</div>
+                            <div class="tip-title">Regular Exercise</div>
+                            <div class="tip-content">Aim for 150 minutes of moderate exercise weekly. Combine cardio with strength training for best results.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">😴</div>
+                            <div class="tip-title">Quality Sleep</div>
+                            <div class="tip-content">Get 7-9 hours of quality sleep. Poor sleep can worsen insulin resistance and hormonal imbalances.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🧘</div>
+                            <div class="tip-title">Stress Management</div>
+                            <div class="tip-content">Practice meditation, yoga, or deep breathing. Chronic stress can aggravate PCOS symptoms.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Anemia Tab -->
+            <div id="anemia" class="tab-content">
+                <div class="filter-section">
+                    <span class="filter-label">Filter by type:</span>
+                    <button class="filter-btn active" onclick="filterVideos('anemia', 'all')">All</button>
+                    <button class="filter-btn" onclick="filterVideos('anemia', 'gentle')">Gentle</button>
+                    <button class="filter-btn" onclick="filterVideos('anemia', 'breathing')">Breathing</button>
+                    <button class="filter-btn" onclick="filterVideos('anemia', 'energy')">Energy</button>
+                </div>
+                
+                <div class="video-grid" id="anemia-videos">
+                    <div class="video-card" data-type="gentle">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/v7AYKMP6rOE" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Gentle Yoga for Anemia & Energy</div>
+                            <div class="video-description">Restorative yoga poses to help manage fatigue and improve circulation without overexertion.</div>
+                            <div class="video-tags">
+                                <span class="tag">Gentle</span>
+                                <span class="tag">20 min</span>
+                                <span class="tag">Restorative</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-type="breathing">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/tybOi4hjZFQ" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Breathing Exercises for Better Oxygen Flow</div>
+                            <div class="video-description">Pranayama techniques to improve oxygen circulation and combat anemia-related fatigue.</div>
+                            <div class="video-tags">
+                                <span class="tag">Breathing</span>
+                                <span class="tag">10 min</span>
+                                <span class="tag">All Levels</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-type="gentle">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/CLVbSXBo-p4" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Chair Exercises for Low Energy Days</div>
+                            <div class="video-description">Gentle seated exercises perfect for days when you're feeling fatigued from anemia.</div>
+                            <div class="video-tags">
+                                <span class="tag">Gentle</span>
+                                <span class="tag">15 min</span>
+                                <span class="tag">Seated</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-type="energy">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/LU_VXn1ECvw" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Morning Stretches for Energy</div>
+                            <div class="video-description">Energizing morning stretches to help combat fatigue and improve blood circulation.</div>
+                            <div class="video-tags">
+                                <span class="tag">Stretching</span>
+                                <span class="tag">10 min</span>
+                                <span class="tag">Morning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wellness-section">
+                    <h3>Anemia Management Tips</h3>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-icon">🥩</div>
+                            <div class="tip-title">Iron-Rich Foods</div>
+                            <div class="tip-content">Include lean meats, beans, leafy greens, and fortified cereals. Pair with vitamin C for better absorption.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">⚡</div>
+                            <div class="tip-title">Energy Conservation</div>
+                            <div class="tip-content">Pace yourself throughout the day. Take rest breaks and avoid overexertion during exercise.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">💊</div>
+                            <div class="tip-title">Supplement Wisely</div>
+                            <div class="tip-content">Take iron supplements as prescribed. Avoid calcium-rich foods or antacids within 2 hours of iron supplements.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🩺</div>
+                            <div class="tip-title">Regular Monitoring</div>
+                            <div class="tip-content">Get regular blood tests to monitor hemoglobin levels and adjust treatment as needed.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Breast Cancer Tab -->
+            <div id="breast-cancer" class="tab-content">
+                <div class="filter-section">
+                    <span class="filter-label">Filter by type:</span>
+                    <button class="filter-btn active" onclick="filterVideos('breast-cancer', 'all')">All</button>
+                    <button class="filter-btn" onclick="filterVideos('breast-cancer', 'recovery')">Recovery</button>
+                    <button class="filter-btn" onclick="filterVideos('breast-cancer', 'gentle')">Gentle</button>
+                    <button class="filter-btn" onclick="filterVideos('breast-cancer', 'lymphedema')">Lymphedema</button>
+                </div>
+                
+                <div class="video-grid" id="breast-cancer-videos">
+                    <div class="video-card" data-type="recovery">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/rPmx96KN8Xw" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Post-Surgery Recovery Exercises</div>
+                            <div class="video-description">Gentle exercises to aid recovery after breast cancer surgery and improve range of motion.</div>
+                            <div class="video-tags">
+                                <span class="tag">Recovery</span>
+                                <span class="tag">15 min</span>
+                                <span class="tag">Post-Surgery</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-type="lymphedema">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/S84VPK9mR0Q" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Lymphedema Prevention Exercises</div>
+                            <div class="video-description">Safe exercises to prevent and manage lymphedema after breast cancer treatment.</div>
+                            <div class="video-tags">
+                                <span class="tag">Lymphedema</span>
+                                <span class="tag">20 min</span>
+                                <span class="tag">Prevention</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-type="gentle">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/mM1N44dMF8o" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Gentle Yoga for Cancer Recovery</div>
+                            <div class="video-description">Restorative yoga designed for breast cancer survivors to promote healing and reduce stress.</div>
+                            <div class="video-tags">
+                                <span class="tag">Yoga</span>
+                                <span class="tag">25 min</span>
+                                <span class="tag">Restorative</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-type="recovery">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/fO3LkPNDQWs" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Strength Building After Treatment</div>
+                            <div class="video-description">Gradually rebuild strength and confidence with cancer-safe exercises.</div>
+                            <div class="video-tags">
+                                <span class="tag">Strength</span>
+                                <span class="tag">20 min</span>
+                                <span class="tag">All Levels</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wellness-section">
+                    <h3>Breast Cancer Recovery Tips</h3>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-icon">🏥</div>
+                            <div class="tip-title">Follow Medical Advice</div>
+                            <div class="tip-content">Always consult your oncologist before starting any exercise program. Follow their recovery timeline.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🌱</div>
+                            <div class="tip-title">Start Slow</div>
+                            <div class="tip-content">Begin with gentle movements and gradually increase intensity. Listen to your body and don't push through pain.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">💝</div>
+                            <div class="tip-title">Lymphedema Awareness</div>
+                            <div class="tip-content">Protect your affected arm. Wear compression sleeves during exercise and avoid heavy lifting initially.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🤝</div>
+                            <div class="tip-title">Support Network</div>
+                            <div class="tip-content">Join support groups and connect with other survivors. Emotional health is as important as physical health.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- General Wellness Tab -->
+            <div id="general" class="tab-content">
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/COp7BR_Dvps" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Full Body Stretch for Women's Health</div>
+                            <div class="video-description">Complete stretching routine to improve flexibility and reduce tension.</div>
+                            <div class="video-tags">
+                                <span class="tag">Stretching</span>
+                                <span class="tag">20 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/v_XcJvjzF_M" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Meditation for Hormonal Balance</div>
+                            <div class="video-description">Guided meditation to support hormonal health and reduce stress.</div>
+                            <div class="video-tags">
+                                <span class="tag">Meditation</span>
+                                <span class="tag">15 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/B3XyyA4Jpz4" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Walking Workout for Overall Health</div>
+                            <div class="video-description">Indoor walking routine that's perfect for any fitness level.</div>
+                            <div class="video-tags">
+                                <span class="tag">Walking</span>
+                                <span class="tag">30 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <iframe src="https://www.youtube.com/embed/sTANio_2E0Q" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Pilates for Core Strength</div>
+                            <div class="video-description">Gentle pilates routine to build core strength and improve posture.</div>
+                            <div class="video-tags">
+                                <span class="tag">Pilates</span>
+                                <span class="tag">25 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wellness-section">
+                    <h3>General Wellness Tips</h3>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-icon">💧</div>
+                            <div class="tip-title">Stay Hydrated</div>
+                            <div class="tip-content">Drink at least 8 glasses of water daily. Proper hydration supports every body function.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🎯</div>
+                            <div class="tip-title">Set Realistic Goals</div>
+                            <div class="tip-content">Start small and build gradually. Celebrate every achievement on your wellness journey.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">📅</div>
+                            <div class="tip-title">Consistency Over Intensity</div>
+                            <div class="tip-content">Regular moderate exercise is better than occasional intense workouts. Make movement a daily habit.</div>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🌸</div>
+                            <div class="tip-title">Self-Care Priority</div>
+                            <div class="tip-content">Taking care of yourself isn't selfish. Your health should always be a top priority.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const userId = localStorage.getItem("user_id");
+        if (!userId) {
+            window.location.href = "/";
+        }
+
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function filterVideos(category, type) {
+            const videoGrid = document.getElementById(`${category}-videos`);
+            const videos = videoGrid.querySelectorAll('.video-card');
+            
+            // Update filter buttons
+            const filterSection = videoGrid.previousElementSibling;
+            filterSection.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filter videos
+            videos.forEach(video => {
+                if (type === 'all' || video.dataset.type === type) {
+                    video.style.display = 'block';
+                } else {
+                    video.style.display = 'none';
+                }
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem("user_id");
+            localStorage.removeItem("user_name");
+            window.location.href = "/";
+        }
+    </script>
+</body>
+</html>
