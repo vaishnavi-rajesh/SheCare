@@ -2,80 +2,73 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Project Name] 🎯
+# SheCare 🩷
 
-## Basic Details
+## SheCare is a comprehensive health assistant designed specifically for women. It helps users identify potential health issues such as PCOS, Anemia, and Breast Cancer, while also assisting in tracking the menstrual cycle and providing personalized diet plans and lifestyle suggestions.
 
-### Team Name: [Name]
+### Team Name: Wonder Wow
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: Nivethitha H D - LBSITW
+- Member 2: Vaishnavi Rajesh - LBSITW
 
 ### Hosted Project Link
 [mention your project hosted link here]
 
 ### Project Description
-[2-3 lines about what your project does]
+SheCare is a digital health assistant for women that helps analyze potential risks for PCOS, Anemia, and Breast Cancer using general symptoms. It also tracks menstrual cycles and provides personalized diet and lifestyle suggestions. Built with HTML, CSS, JavaScript, Flask, SQLite, and Scikit-learn, SheCare empowers women to make informed health decisions.
+
+Note: SheCare provides risk analysis only and is not a medical diagnosis.
 
 ### The Problem statement
-[What problem are you solving?]
+Women’s health often goes under-monitored, and many common health issues such as PCOS, Anemia, and Breast Cancer remain undiagnosed until they become severe. Additionally, tracking menstrual cycles and maintaining a healthy lifestyle can be challenging due to busy schedules, lack of personalized guidance, and limited access to reliable health information.
+
+There is a need for a digital health assistant that can help women proactively monitor their health, identify potential risks early, and provide personalized diet and lifestyle recommendations. Such a solution would empower women to take control of their well-being and make informed health decisions, improving both preventive care and quality of life.
 
 ### The Solution
-[How are you solving it?]
-
----
+SheCare is a digital health assistant for women that helps analyze potential health risks for conditions like PCOS, Anemia, and Breast Cancer using general symptoms provided by the user. It also tracks menstrual cycles and offers personalized diet and lifestyle suggestions. Important: SheCare provides risk analysis only and is not a medical diagnosis, as it relies on general symptoms rather than professional medical tests. By combining monitoring, risk insights, and guidance, SheCare empowers women to take proactive steps toward better health.
 
 ## Technical Details
 
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+- Languages used: HTML, CSS, JavaScript, Python
+- Frameworks used:Flask
+- Libraries used: SQLite, sckikit-learn, pandas, pickle
+- Tools used: VS Code, Git
 
-**For Hardware:**
-- Main components: [List main components]
-- Specifications: [Technical specifications]
-- Tools required: [List tools needed]
-
----
 
 ## Features
 
-List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
+Health Risk Prediction: Identify potential risks for PCOS, Anemia, and Breast Cancer based on general symptoms from user inputs.
 
----
+Menstrual Cycle Tracking: Log and monitor menstrual cycles for better reproductive health awareness.
+
+Personalized Diet & Lifestyle Recommendations: Receive tailored suggestions to improve health and wellbeing.
+
+User-friendly Interface: Simple and intuitive navigation for easy use by women of all ages
 
 ## Implementation
 
 ### For Software:
 
 #### Installation
-```bash
-[Installation commands - e.g., npm install, pip install -r requirements.txt]
-```
+Clone the repository
+
+git clone https://github.com/your-username/SheCare.git
+cd SheCare
+
+Install backend dependencies
+
+pip install -r requirements.txt
 
 #### Run
-```bash
-[Run commands - e.g., npm start, python app.py]
-```
+Start the Flask backend
+python app.py
 
-### For Hardware:
-
-#### Components Required
-[List all components needed with specifications]
-
-#### Circuit Setup
-[Explain how to set up the circuit]
-
----
+Open the frontend
+Open index.html in your browser
 
 ## Project Documentation
 
@@ -83,8 +76,7 @@ List the key features of your project:
 
 #### Screenshots (Add at least 3)
 
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![alt text](<Screenshot 2026-02-14 084254.png>)
 
 ![Screenshot2](Add screenshot 2 here with proper name)
 *Add caption explaining what this shows*
