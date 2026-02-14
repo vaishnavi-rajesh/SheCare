@@ -76,13 +76,16 @@ Open index.html in your browser
 
 #### Screenshots (Add at least 3)
 
-![alt text](<Screenshot 2026-02-14 084254.png>)
+https://drive.google.com/open?id=1hPpmfJXfLXovLa5ORJIIg7drJyLGaLfH&usp=drive_copy
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+https://drive.google.com/open?id=1UEinQYQT5wHKCMT2RqDPTRxZ8JWDLvwY&usp=drive_copy
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+https://drive.google.com/open?id=1429TmPZjJkL1khgFmuTQC1Z9e17XfaFT&usp=drive_copy
+https://drive.google.com/open?id=1u2UklPS8QDE8XaymKgMkc07PTlDPreuS&usp=drive_copy
+https://drive.google.com/open?id=1vMQfRF5S8_KY1e2YUNmCxMF7Lv57b0KW&usp=drive_copy
+https://drive.google.com/open?id=18FBawD-gXpbo8mRED9jSuuKJ8XKOTMTH&usp=drive_copy
+https://drive.google.com/open?id=1PS_Cmruvqcd8BXNuGhpfWGNLrbx2Okws&usp=drive_copy
+https://drive.google.com/open?id=1cKGDyLKRXXhMJebw0fuAFPzvNCIcS5vN&usp=drive_copy
 
 #### Diagrams
 
@@ -353,7 +356,43 @@ python script.py -v --format json data.json
 ## Project Demo
 
 ### Video
-[Add your demo video link here - YouTube, Google Drive, etc.]
+https://drive.google.com/file/d/1PHIYL_I5iFgK9aUZ1gUe-tLhrpsnABbn/view?usp=drive_link
+
+The video demonstrates the functionality of **SheCare**, a health and wellness platform designed for women.
+
+The application includes several key modules to help users manage and monitor their health:
+
+### **1. Health Risk Assessment**
+
+The video starts with a user completing a comprehensive health risk assessment. The user enters personal data such as:
+
+* **Physical Metrics:** Age, weight, height, and BMI (calculated automatically).
+* **Symptom Tracking:** Cycle variation, acne severity, excessive hair growth, fatigue, and hemoglobin levels.
+* **Results:** After analyzing the risks, the app provides a status for **PCOS**, **Anemia**, and **Breast Cancer** risks (e.g., showing a "High" risk for Anemia and "Low" for others in the demo).
+
+### **2. Period Tracker**
+
+The **Period Tracker** module displays a calendar view of the user's menstrual cycle.
+
+* **Current Phase:** It identifies the current phase (e.g., Menstruation) and provides stats like average cycle length and the date of the next expected period.
+* **Cycle Logging:** Users can log period dates, intensity, and symptoms like cramps, mood swings, or back pain.
+
+### **3. Nutrition Planner**
+
+This section provides personalized meal recommendations based on selected symptoms.
+
+* The user selects symptoms like **Anemia** or **Fatigue**, and the app generates a meal plan including breakfast (e.g., Spinach Tofu Scramble), lunch (e.g., Beef Lentil Soup), and dinner options designed to address those issues.
+
+### **4. Lifestyle & Wellness Hub**
+
+The hub offers curated resources to manage specific conditions:
+
+* **Exercise Videos:** Categorized by type (Yoga, Cardio, Strength) and condition (PCOS, Anemia Management).
+* **Tips:** General wellness advice, such as balanced nutrition and regular exercise, is provided at the bottom of the dashboard.
+
+### **5. Prediction History**
+
+The **View History** tab allows users to see a chronological list of their previous health risk assessments, making it easy to track changes in risk levels over time.
 
 *Explain what the video demonstrates - key features, user flow, technical highlights*
 
@@ -366,12 +405,14 @@ python script.py -v --format json data.json
 
 If you used AI tools during development, document them here for transparency:
 
-**Tool Used:** [e.g., GitHub Copilot, v0.dev, Cursor, ChatGPT, Claude]
+**Tool Used:** ChatGPT, Claude
 
 **Purpose:** [What you used it for]
-- Example: "Generated boilerplate React components"
-- Example: "Debugging assistance for async functions"
-- Example: "Code review and optimization suggestions"
+Debugging
+Dataset for model training
+Understand Client-server connections
+Installation steps
+
 
 **Key Prompts Used:**
 - "Create a REST API endpoint for user authentication"
