@@ -8,7 +8,7 @@ from sklearn.linear_model import LogisticRegression
 os.makedirs("model", exist_ok=True)
 
 # load dataset
-df = pd.read_csv("shecare_dataset_large.csv")
+df = pd.read_csv(r"C:\Users\DELL\Desktop\new\SheCare\shecare_dataset_large.csv")
 
 # features
 features = [

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheCare - Nutrition Planner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe5f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar h1 {
+            color: #d63384;
+            font-size: 24px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: #d63384;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .nav-btn:hover {
+            background: #b82b6e;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .symptom-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .symptom-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        
+        .symptom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .symptom-card.selected {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+        }
+        
+        .symptom-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .symptom-name {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .generate-btn {
+            width: 100%;
+            padding: 15px;
+            background: #d63384;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 30px;
+        }
+        
+        .generate-btn:hover {
+            background: #b82b6e;
+        }
+        
+        .generate-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .meal-plan {
+            display: none;
+        }
+        
+        .meal-section {
+            margin-bottom: 30px;
+            border-left: 4px solid #d63384;
+            padding-left: 20px;
+        }
+        
+        .meal-title {
+            color: #d63384;
+            font-size: 24px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .meal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .meal-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .meal-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .meal-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .ingredients {
+            margin: 15px 0;
+        }
+        
+        .ingredients h5 {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .ingredients ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .ingredients li {
+            padding: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        .ingredients li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .benefits {
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        
+        .benefits-title {
+            color: #0066cc;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .benefits-text {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .nutrition-tips {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .nutrition-tips h3 {
+            color: #2d3436;
+            margin-bottom: 15px;
+        }
+        
+        .nutrition-tips ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .nutrition-tips li {
+            padding: 8px 0;
+            color: #2d3436;
+            font-size: 14px;
+        }
+        
+        .nutrition-tips li:before {
+            content: "💡 ";
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #d63384;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .symptom-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .meal-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🥗 Nutrition Planner</h1>
+        <div>
+            <a href="/dashboard" class="nav-btn">Dashboard</a>
+            <a href="/lifestyle" class="nav-btn">Lifestyle</a>
+            <a href="#" onclick="logout()" class="nav-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Select Your Symptoms</h2>
+            <p style="color: #666; margin-bottom: 20px;">Choose the symptoms you're experiencing to get personalized nutrition recommendations</p>
+            
+            <div class="symptom-selector" id="symptomSelector">
+                <div class="symptom-card" data-symptom="pcos" onclick="toggleSymptom(this)">
+                    <div class="symptom-icon">🔄</div>
+                    <div class="symptom-name">PCOS</div>
+                </div>
+                <div class="symptom-card" data-symptom="anemia" onclick="toggleSymptom(this)">
+                    <div class="symptom-icon">🩸</div>
+                    <div class="symptom-name">Anemia</div>
+                </div>
+                <div class="symptom-card" data-symptom="fatigue" onclick="toggleSymptom(this)">
+                    <div class="symptom-icon">😴</div>
+                    <div class="symptom-name">Fatigue</div>
+                </div>
+                <div class="symptom-card" data-symptom="cramps" onclick="toggleSymptom(this)">
+                    <div class="symptom-icon">💢</div>
+                    <div class="symptom-name">Cramps</div>
+                </div>
+                <div class="symptom-card" data-symptom="bloating" onclick="toggleSymptom(this)">
+                    <div class="symptom-icon">🎈</div>
+                    <div class="symptom-name">Bloating</div>
+                </div>
+                <div class="symptom-card" data-symptom="mood_swings" onclick="toggleSymptom(this)">
+                    <div class="symptom-icon">😊😢</div>
+                    <div class="symptom-name">Mood Swings</div>
+                </div>
+                <div class="symptom-card" data-symptom="acne" onclick="toggleSymptom(this)">
+                    <div class="symptom-icon">🔴</div>
+                    <div class="symptom-name">Acne</div>
+                </div>
+                <div class="symptom-card" data-symptom="hair_loss" onclick="toggleSymptom(this)">
+                    <div class="symptom-icon">💇</div>
+                    <div class="symptom-name">Hair Loss</div>
+                </div>
+            </div>
+            
+            <button class="generate-btn" id="generateBtn" onclick="generateMealPlan()">
+                Generate Personalized Meal Plan
+            </button>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="color: #666;">Generating your personalized meal plan...</p>
+        </div>
+        
+        <div class="meal-plan" id="mealPlan">
+            <div class="card">
+                <div class="meal-section">
+                    <div class="meal-title">
+                        <span>🌅</span>
+                        <span>Breakfast</span>
+                    </div>
+                    <div class="meal-grid" id="breakfastGrid"></div>
+                </div>
+                
+                <div class="meal-section">
+                    <div class="meal-title">
+                        <span>☀️</span>
+                        <span>Lunch</span>
+                    </div>
+                    <div class="meal-grid" id="lunchGrid"></div>
+                </div>
+                
+                <div class="meal-section">
+                    <div class="meal-title">
+                        <span>🌙</span>
+                        <span>Dinner</span>
+                    </div>
+                    <div class="meal-grid" id="dinnerGrid"></div>
+                </div>
+                
+                <div class="meal-section">
+                    <div class="meal-title">
+                        <span>🍎</span>
+                        <span>Snacks</span>
+                    </div>
+                    <div class="meal-grid" id="snacksGrid"></div>
+                </div>
+                
+                <div class="nutrition-tips" id="nutritionTips"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const userId = localStorage.getItem("user_id");
+        if (!userId) {
+            window.location.href = "/";
+        }
+
+        let selectedSymptoms = [];
+
+        function toggleSymptom(card) {
+            const symptom = card.dataset.symptom;
+            
+            if (card.classList.contains('selected')) {
+                card.classList.remove('selected');
+                selectedSymptoms = selectedSymptoms.filter(s => s !== symptom);
+            } else {
+                card.classList.add('selected');
+                selectedSymptoms.push(symptom);
+            }
+            
+            document.getElementById('generateBtn').disabled = selectedSymptoms.length === 0;
+        }
+
+        async function generateMealPlan() {
+            if (selectedSymptoms.length === 0) {
+                alert("Please select at least one symptom");
+                return;
+            }
+            
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('mealPlan').style.display = 'none';
+            
+            try {
+                const response = await fetch("/nutrition/generate", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        user_id: parseInt(userId),
+                        symptoms: selectedSymptoms
+                    })
+                });
+                
+                const data = await response.json();
+                
+                document.getElementById('loading').style.display = 'none';
+                displayMealPlan(data);
+                
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                alert("An error occurred. Please try again.");
+                console.error(error);
+            }
+        }
+
+        function displayMealPlan(data) {
+            document.getElementById('breakfastGrid').innerHTML = renderMeals(data.breakfast);
+            document.getElementById('lunchGrid').innerHTML = renderMeals(data.lunch);
+            document.getElementById('dinnerGrid').innerHTML = renderMeals(data.dinner);
+            document.getElementById('snacksGrid').innerHTML = renderMeals(data.snacks);
+            document.getElementById('nutritionTips').innerHTML = renderTips(data.tips);
+            
+            document.getElementById('mealPlan').style.display = 'block';
+            document.getElementById('mealPlan').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderMeals(meals) {
+            return meals.map(meal => `
+                <div class="meal-card">
+                    <h4>${meal.name}</h4>
+                    <div class="ingredients">
+                        <h5>Ingredients:</h5>
+                        <ul>
+                            ${meal.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="benefits">
+                        <div class="benefits-title">Health Benefits:</div>
+                        <div class="benefits-text">${meal.benefits}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderTips(tips) {
+            return `
+                <h3>Nutritional Tips for Your Symptoms</h3>
+                <ul>
+                    ${tips.map(tip => `<li>${tip}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        function logout() {
+            localStorage.removeItem("user_id");
+            localStorage.removeItem("user_name");
+            window.location.href = "/";
+        }
+    </script>
+</body>
+</html>

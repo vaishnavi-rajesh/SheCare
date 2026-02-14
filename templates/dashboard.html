@@ -37,6 +37,7 @@
         .nav-buttons {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         
         .nav-btn {
@@ -217,6 +218,11 @@
                 flex-direction: column;
                 gap: 15px;
             }
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -225,6 +231,8 @@
         <h1>🌸 SheCare Dashboard</h1>
         <div class="nav-buttons">
             <button class="nav-btn" onclick="window.location.href='/period-tracker'">Period Tracker</button>
+            <button class="nav-btn" onclick="window.location.href='/nutrition-planner'">Nutrition Planner</button>
+            <button class="nav-btn" onclick="window.location.href='/lifestyle'">Lifestyle</button>
             <button class="nav-btn" onclick="viewHistory()">View History</button>
             <button class="nav-btn secondary" onclick="logout()">Logout</button>
         </div>
